@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import commander from 'commander'
+import program from 'commander';
 
 program
   .version('0.0.1')
