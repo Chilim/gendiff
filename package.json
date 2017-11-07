@@ -1,7 +1,7 @@
 {
   "name": "diffestim",
   "version": "0.0.9",
-  "description": "",
+  "description": "data comparing utility",
   "main": "index.js",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
