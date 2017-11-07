@@ -11,5 +11,3 @@ program
     console.log(genDiff(firstFile, secondFile));
   })
   .parse(process.argv);
-
-// if (!program.args.length) program.help();
