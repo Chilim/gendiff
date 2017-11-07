@@ -3,7 +3,7 @@ import fs from 'fs';
 
 const compareContents = (firstObj, secondObj) => _.union(_.keys(firstObj), _.keys(secondObj))
   .reduce((acc, key) => {
-    if (firstObj.hasOwnProperty(key) && secondObj.hasOwnProperty(key)) {
+    if (Object.hasOwnProperty.call(firstObj, key) && Object.hasOwnProperty.call(secondObj, key)) {
       if (firstObj[key] === secondObj[key]) {
         return [...acc, { key, value: firstObj[key], operation: '' }];
       }

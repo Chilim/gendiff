@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --harmony
 import program from 'commander';
 import genDiff from '..';
 
