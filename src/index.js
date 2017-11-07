@@ -7,8 +7,8 @@ const compareContents = (firstObj, secondObj) => _.union(_.keys(firstObj), _.key
       if (firstObj[key] === secondObj[key]) {
         return [...acc, { key, value: firstObj[key], operation: '' }];
       }
-      const newAcc = [...acc, { key, value: firstObj[key], operation: '-' }];
-      return [...newAcc, { key, value: secondObj[key], operation: '+' }];
+      const newAcc = [...acc, { key, value: secondObj[key], operation: '-' }];
+      return [...newAcc, { key, value: firstObj[key], operation: '+' }];
     }
     return [...acc, { key, value: secondObj[key], operation: '+' }];
   }, []);
