@@ -1,8 +1,7 @@
-import fs from 'fs';
 import genDiff from '../src';
 
-const firstFilePath = fs.readFileSync('tests/testfiles/before.js', 'utf8');
-const secondFilePath = fs.readFileSync('tests/testfiles/after.js', 'utf8');
+const firstFilePath = './__tests__/fixtures/before.json';
+const secondFilePath = './__tests__/fixtures/after.json';
 
 const actual = genDiff(firstFilePath, secondFilePath);
 const expected = `{

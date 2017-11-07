@@ -1,12 +1,9 @@
+import _ from 'lodash';
 import fs from 'fs';
 
-
-const compareContents = (firstObj, secondObj) => {
-  const firstObjKeys = Object.keys(firstObj);
-  const secondObjKeys = Object.keys(secondObj);
-
-  secondObjKeys.reduce((acc, key) => {
-    if (firstObjKeys.includes(key)) {
+const compareContents = (firstObj, secondObj) => _.union(_.keys(firstObj), _.keys(secondObj))
+  .reduce((acc, key) => {
+    if (firstObj.hasOwnProperty(key) && secondObj.hasOwnProperty(key)) {
       if (firstObj[key] === secondObj[key]) {
         return [...acc, { key, value: firstObj[key], operation: '' }];
       }
@@ -15,10 +12,9 @@ const compareContents = (firstObj, secondObj) => {
     }
     return [...acc, { key, value: secondObj[key], operation: '+' }];
   }, []);
-};
 
 const output = (dsl) => {
-  const result = dsl.map(el => `${el.operation} ${el.key} : ${el.value} \n`);
+  const result = dsl.map(obj => `${obj.operation} ${obj.key} : ${obj.value} \n`);
   return `{${result.join('')}}`;
 };
 
