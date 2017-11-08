@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import getAst from './';
+import getAst from './ast';
 
 const getFormat = (format) => {
-  if (format === 'json') return JSON.parse;
+  if (format === '.json') return JSON.parse;
   return safeLoad;
 };
 
