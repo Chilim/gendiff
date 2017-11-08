@@ -1,23 +1,25 @@
 import fs from 'fs';
 import path from 'path';
-import getAst from './ast';
+import yaml from 'js-yaml';
+import parse from './ast';
 
-const getFormat = (format) => {
-  if (format === '.json') return JSON.parse;
-  return safeLoad;
+const formatActions = {
+  json: arg => JSON.parse(arg),
+  yml: arg => yaml.safeLoad(arg),
 };
 
-const output = (dsl) => {
-  const result = dsl.map(obj => `${obj.operation} ${obj.key} : ${obj.value} \n`);
+const getFormatAction = (extention, pathToFile) => formatActions[extention](pathToFile);
+
+const render = (ast) => {
+  const result = ast.map(obj => `${obj.operation} ${obj.key} : ${obj.value} \n`);
   return `{${result.join('')}}`;
 };
 
 export default (firstFilePath, secondFilePath) => {
-  const getFirstFile = fs.readFileSync(firstFilePath, 'utf8');
-  const getSecondFile = fs.readFileSync(secondFilePath, 'utf8');
-  const format = path.extname(getFirstFile).slice(1);
-  const firstFileContent = getFormat(format)(getFirstFile);
-  const secondFileContent = getFormat(format)(getSecondFile);
-  const ast = getAst(firstFileContent, secondFileContent);
-  return output(ast);
+  const firstObj = fs.readFileSync(firstFilePath, 'utf8');
+  const secondObj = fs.readFileSync(secondFilePath, 'utf8');
+  const format = path.extname(firstFilePath).slice(1);
+  const firstFileContent = getFormatAction(format, firstObj);
+  const secondFileContent = getFormatAction(format, secondObj);
+  return render(parse(firstFileContent, secondFileContent));
 };
