@@ -19,9 +19,9 @@ const output = (dsl) => {
 };
 
 export default (firstFilePath, secondFilePath) => {
-  const getFirstFile = fs.readFileSync('firstFilePath', 'utf8');
+  const getFirstFile = fs.readFileSync(firstFilePath, 'utf8');
   const firstFileContent = JSON.parse(getFirstFile);
-  const getSecondFile = fs.readFileSync('secondFilePath', 'utf8');
+  const getSecondFile = fs.readFileSync(secondFilePath, 'utf8');
   const secondFileContent = JSON.parse(getSecondFile);
   const dsl = compareContents(firstFileContent, secondFileContent);
   return output(dsl);
