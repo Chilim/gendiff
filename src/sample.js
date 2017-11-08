@@ -1,7 +1,5 @@
 const fs = require('fs');
 
-const json1 = '';
 
-
-const data = fs.readFileSync(json1);
+const data = fs.readFileSync('sample.txt', 'utf8');
 console.log(data);
