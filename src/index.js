@@ -3,12 +3,18 @@ import path from 'path';
 import yaml from 'js-yaml';
 import parse from './ast';
 
-const formatActions = {
-  json: arg => JSON.parse(arg),
-  yml: arg => yaml.safeLoad(arg),
-};
+const formatActions = [
+  {
+    format: arg => arg === '.json',
+    process: obj => JSON.parse(obj),
+  },
+  {
+    format: arg => arg === '.yaml',
+    process: obj => yaml.safeLoad(obj),
+  },
+];
 
-const getFormatAction = (extention, pathToFile) => formatActions[extention](pathToFile);
+const getFormatAction = extention => _.find(formatActions, ({ format }) => format(extention));
 
 const render = (ast) => {
   const result = ast.map(obj => `${obj.operation} ${obj.key} : ${obj.value} \n`);
@@ -18,8 +24,9 @@ const render = (ast) => {
 export default (firstFilePath, secondFilePath) => {
   const firstObj = fs.readFileSync(firstFilePath, 'utf8');
   const secondObj = fs.readFileSync(secondFilePath, 'utf8');
-  const format = path.extname(firstFilePath).slice(1);
-  const firstFileContent = getFormatAction(format, firstObj);
-  const secondFileContent = getFormatAction(format, secondObj);
+  const extention = path.extname(firstFilePath);
+  const { process } = getFormatAction(extention);
+  const firstFileContent = process(firstObj);
+  const secondFileContent = process(secondObj);
   return render(parse(firstFileContent, secondFileContent));
 };
