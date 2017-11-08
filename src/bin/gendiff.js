@@ -12,4 +12,4 @@ program
   })
   .parse(process.argv);
 
-console.log('we are free');
+console.log('we are free again');
