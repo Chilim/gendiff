@@ -2,25 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 import ini from 'ini';
-import _ from 'lodash';
-import parse from './parser';
+import getAst from './ast';
 
-const formatActions = [
-  {
-    format: arg => arg === '.json',
-    process: obj => JSON.parse(obj),
-  },
-  {
-    format: arg => arg === '.yaml',
-    process: obj => yaml.safeLoad(obj),
-  },
-  {
-    format: arg => arg === '.ini',
-    process: obj => ini.parse(obj),
-  },
-];
+const formatActions = {
+  '.json': arg => JSON.parse(arg),
+  '.yaml': arg => yaml.safeLoad(arg),
+  '.ini': arg => ini.parse(arg),
+};
 
-const getFormatAction = extention => _.find(formatActions, ({ format }) => format(extention));
+const getExtenAction = exten => formatActions[exten];
 
 const render = (ast) => {
   const result = ast.map(obj => `${obj.operation} ${obj.key} : ${obj.value} \n`);
@@ -30,9 +20,9 @@ const render = (ast) => {
 export default (firstFilePath, secondFilePath) => {
   const firstObj = fs.readFileSync(firstFilePath, 'utf8');
   const secondObj = fs.readFileSync(secondFilePath, 'utf8');
-  const extention = path.extname(firstFilePath);
-  const { process } = getFormatAction(extention);
-  const firstFileContent = process(firstObj);
-  const secondFileContent = process(secondObj);
-  return render(parse(firstFileContent, secondFileContent));
+  const exten = path.extname(firstFilePath);
+  const extenAction = getExtenAction(exten);
+  const firstFileContent = extenAction(firstObj);
+  const secondFileContent = extenAction(secondObj);
+  return render(getAst(firstFileContent, secondFileContent));
 };
