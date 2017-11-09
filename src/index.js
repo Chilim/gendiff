@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
+import ini from 'ini';
 import parse from './parser';
 
 const formatActions = [
@@ -11,6 +12,10 @@ const formatActions = [
   {
     format: arg => arg === '.yaml',
     process: obj => yaml.safeLoad(obj),
+  },
+  {
+    format: arg => arg === '.ini',
+    process: obj => ini.parse(obj),
   },
 ];
 
