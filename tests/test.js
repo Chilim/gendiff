@@ -1,6 +1,6 @@
 import genDiff from '../src';
 
-describe('gendiff', () => {
+describe('genDiff', () => {
   const expected = '{\n  host: hexlet.io\n+ timeout: 20\n- timeout: 50\n- proxy: 123.234.53.22\n+ verbose: true\n}';
   test('compare .json files', () => {
     const path1 = 'tests/fixtures/before.json';
