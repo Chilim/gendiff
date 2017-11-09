@@ -14,7 +14,7 @@ const getExtenAction = exten => formatActions[exten];
 
 const render = (ast) => {
   const result = ast.map(obj => `${obj.operation} ${obj.key} : ${obj.value} \n`);
-  return `{${result.join('')}}`;
+  return `{\n${result.join('')}}`;
 };
 
 export default (firstFilePath, secondFilePath) => {
