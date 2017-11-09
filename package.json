@@ -1,6 +1,6 @@
 {
   "name": "diffestim",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "data comparing utility",
   "main": "index.js",
   "bin": {
