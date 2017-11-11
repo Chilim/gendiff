@@ -16,6 +16,7 @@ export default (firstFilePath, secondFilePath) => {
   const exten = path.extname(firstFilePath);
   const extenAction = getExtenAction(exten);
   const firstFileContent = extenAction(firstObj);
+  console.log(firstFileContent);
   const secondFileContent = extenAction(secondObj);
   return render(getAst(firstFileContent, secondFileContent));
 };

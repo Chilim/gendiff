@@ -24,7 +24,7 @@ const getAst = (firstObj, secondObj) => _.union(_.keys(firstObj), _.keys(secondO
       }
       return makeObj({ key, firstVal: firstObj[key], secondVal: secondObj[key], operation: '+-' });
     }
-    return makeObj({ key, children: getAst(firstObj[key], secondObj[key]), operation: ' '});
+    return makeObj({ key, children: getAst(firstObj[key], secondObj[key]), operation: ' ' });
   });
 
 export default getAst;
