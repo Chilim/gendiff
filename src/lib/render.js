@@ -30,8 +30,7 @@ const render = (ast, shift = 1) => {
     }
     return 'no match';
   });
-  return `{\n${result.join('')} }`;
+  return `{\n${result.join('\n')}\n${doubleShift}}`;
 };
 
-// module.exports = render;
 export default render;

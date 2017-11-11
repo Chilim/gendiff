@@ -1,4 +1,3 @@
-// import _ from 'lodash';
 const _ = require('lodash');
 
 const makeObj = ({ key, secondVal, firstVal, children = [], operation }) => {
@@ -28,5 +27,4 @@ const getDiff = (firstObj, secondObj) => _.union(_.keys(firstObj), _.keys(second
     return makeObj({ key, children: getDiff(firstObj[key], secondObj[key]), operation: 'draw' });
   });
 
-// module.exports = getDiff;
 export default getDiff;
