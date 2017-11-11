@@ -1,7 +1,15 @@
 import fs from 'fs';
 import path from 'path';
+import yaml from 'js-yaml';
+import ini from 'ini';
 import getAst from './lib/ast';
-import formatActions from './lib/parser';
+
+
+const formatActions = {
+  '.json': JSON.parse,
+  '.yaml': arg => yaml.safeLoad(arg),
+  '.ini': arg => ini.parse(arg),
+};
 
 const getExtenAction = exten => formatActions[exten];
 
