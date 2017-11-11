@@ -2,8 +2,17 @@ import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 import ini from 'ini';
-import getAst from './lib/ast';
+import getDiff from './lib/ast';
+import render from './lib/render';
+// const fs = require('fs');
+// const path = require('path');
+// const yaml = require('js-yaml');
+// const ini = require('ini');
+// const getDiff = require('./lib/ast');
+// const render = require('./lib/render');
 
+// const before = 'tests/fixtures/before2.json';
+// const after = 'tests/fixtures/after2.json';
 
 const formatActions = {
   '.json': JSON.parse,
@@ -13,18 +22,18 @@ const formatActions = {
 
 const getExtenAction = exten => formatActions[exten];
 
-const render = (ast) => {
-  const result = ast.map(obj => `${obj.operation} ${obj.key} : ${obj.value} \n`);
-  return `{\n${result.join('')}}`;
-};
-
-export default (firstFilePath, secondFilePath) => {
+const genDiff = (firstFilePath, secondFilePath) => {
   const firstObj = fs.readFileSync(firstFilePath, 'utf8');
   const secondObj = fs.readFileSync(secondFilePath, 'utf8');
   const exten = path.extname(firstFilePath);
   const extenAction = getExtenAction(exten);
   const firstFileContent = extenAction(firstObj);
-  console.log(firstFileContent);
   const secondFileContent = extenAction(secondObj);
-  return render(getAst(firstFileContent, secondFileContent));
+  const ast = getDiff(firstFileContent, secondFileContent);
+  const result = render(ast);
+  console.log(result);
+  return result;
 };
+// module.exports = genDiff;
+
+export default genDiff;

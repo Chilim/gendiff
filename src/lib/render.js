@@ -8,7 +8,7 @@ const render = (ast, shift = 1) => {
       if (!obj.children.length) {
         return `${doubleShift}  ${obj.key}: ${obj.secondVal}\n`;
       }
-      return `${doubleShift} ${obj.key}: ${render(obj.children, newShift)}\n`;
+      return `${doubleShift}  ${obj.key}: ${render(obj.children, newShift)}\n`;
     }
     if (obj.operation === 'changed') {
       if (!obj.children.length) {
@@ -16,21 +16,22 @@ const render = (ast, shift = 1) => {
       }
       return `${doubleShift}+ ${obj.key}: ${render(obj.children, newShift)}\n`;
     }
-    if (obj.operation === 'deleted') {
+    if (obj.operation === 'delete') {
       if (!obj.children.length) {
         return `${doubleShift}- ${obj.key}: ${obj.firstVal}\n`;
       }
       return `${doubleShift}- ${obj.key}: ${render(obj.children, newShift)}\n`;
     }
-    if (obj.operation === 'added') {
+    if (obj.operation === 'add') {
       if (!obj.children.length) {
         return `${doubleShift}+ ${obj.key}: ${obj.secondVal}\n`;
       }
       return `${doubleShift}+ ${obj.key}: ${render(obj.children, newShift)}\n`;
     }
-    return 'No combinations is match';
+    return 'no match';
   });
   return `{\n${result.join('')} }`;
 };
 
+// module.exports = render;
 export default render;
