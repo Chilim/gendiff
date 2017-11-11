@@ -10,19 +10,19 @@ const render = (ast, shift = 1) => {
       }
       return `${doubleShift} ${obj.key}: ${render(obj.children, newShift)}\n`;
     }
-    if (obj.operation === 'change') {
+    if (obj.operation === 'changed') {
       if (!obj.children.length) {
         return `${doubleShift}+ ${obj.key}: ${obj.secondVal}\n${doubleShift}- ${obj.key}: ${obj.firstVal}\n`;
       }
       return `${doubleShift}+ ${obj.key}: ${render(obj.children, newShift)}\n`;
     }
-    if (obj.operation === 'delete') {
+    if (obj.operation === 'deleted') {
       if (!obj.children.length) {
         return `${doubleShift}- ${obj.key}: ${obj.firstVal}\n`;
       }
       return `${doubleShift}- ${obj.key}: ${render(obj.children, newShift)}\n`;
     }
-    if (obj.operation === 'add') {
+    if (obj.operation === 'added') {
       if (!obj.children.length) {
         return `${doubleShift}+ ${obj.key}: ${obj.secondVal}\n`;
       }
