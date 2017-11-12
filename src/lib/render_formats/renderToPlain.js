@@ -14,9 +14,9 @@ const renderToPlain = (ast, root = '') => {
     if (obj.children.length) {
       return `${renderToPlain(obj.children, property)}`;
     }
-    return false;
+    return null;
   });
-  return result.filter(item => item !== null || item === 'undefined').join('\n');
+  return result.filter(item => item !== null).join('\n');
 };
 
 export default renderToPlain;
