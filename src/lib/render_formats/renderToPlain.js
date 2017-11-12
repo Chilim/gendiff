@@ -8,8 +8,8 @@ const renderToPlain = (ast, root = '') => {
       return `Property ${property} was removed`;
     }
     if (obj.operation === 'added') {
-      const value = obj.children.length ? 'complex value' : obj.secondVal;
-      return `Property ${property} was added with value: ${value}`;
+      const value = obj.children.length ? 'complex value' : `value: ${obj.secondVal}`;
+      return `Property ${property} was added with ${value}`;
     }
     if (obj.children.length) {
       return `${renderToPlain(obj.children, property)}`;
