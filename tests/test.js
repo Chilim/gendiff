@@ -64,4 +64,18 @@ describe('Compares two Recursive files', () => {
     const actual = genDiff(path1, path2, 'casual');
     expect(actual).toBe(expected);
   });
+
+  test('compare .json files with recursion', () => {
+    const path1 = 'tests/fixtures/before2.json';
+    const path2 = 'tests/fixtures/after2.json';
+    const actual = genDiff(path1, path2, 'casual');
+    expect(actual).toBe(expected);
+  });
+
+  test('compare .json files with recursion', () => {
+    const path1 = 'tests/fixtures/before2.json';
+    const path2 = 'tests/fixtures/after2.json';
+    const actual = genDiff(path1, path2, 'casual');
+    expect(actual).toBe(expected);
+  });
 });
