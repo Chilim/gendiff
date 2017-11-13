@@ -1,4 +1,4 @@
-const genDiff = require('../src');
+import genDiff from '../src';
 
 describe('genDiff', () => {
   const expected =
