@@ -9,7 +9,7 @@ const renderToPlain = (ast, root = '') => {
       case 'hasChildren':
         return `${renderToPlain(obj.value, property)}`;
       case 'changed':
-        return `Property '${property}' was updated. From '${newValue.secondVal}' to '${newValue.firstVal}'`;
+        return `Property '${property}' was updated. From '${newValue.newVal}' to '${newValue.oldVal}'`;
       case 'added':
         return `Property '${property}' was added with ${(newValue === 'complex value') ? newValue :
           `value: ${newValue}`}`;

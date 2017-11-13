@@ -15,11 +15,11 @@ const renderToString = (ast, shift = 2) => {
       obj.value;
     switch (obj.type) {
       case 'hasChildren':
-        return `${spaces}  ${obj.key}: {\n${renderToString(obj.value, shift + doubleShift)}\n${spaces}}`;
+        return `${spaces}  ${obj.key}: {\n${renderToString(obj.value, shift + doubleShift)}\n${spaces}  }\n`;
       case 'unchanged':
         return `${spaces}  ${obj.key}: ${newValue}\n`;
       case 'changed':
-        return `${spaces}+ ${obj.key}: ${newValue.secondVal}\n${spaces}- ${obj.key}: ${newValue.firstVal}\n`;
+        return `${spaces}+ ${obj.key}: ${newValue.newVal}\n${spaces}- ${obj.key}: ${newValue.oldVal}\n`;
       case 'added':
         return `${spaces}+ ${obj.key}: ${newValue}\n`;
       case 'deleted':
@@ -28,7 +28,8 @@ const renderToString = (ast, shift = 2) => {
         return null;
     }
   });
-  return `{\n${result.join('')}}`;
+  result.join('');
+  return `{\n${result.join('')}`;
 };
 
 export default renderToString;

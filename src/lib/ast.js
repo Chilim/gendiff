@@ -19,7 +19,7 @@ const getDiff = (firstObj, secondObj) => _.union(_.keys(firstObj), _.keys(second
     if (_.has(firstObj, key) && _.has(secondObj, key) && firstObj[key] === secondObj[key]) {
       return makeObj({ key, value: firstObj[key], type: 'unchanged' });
     }
-    return makeObj({ key, value: { firstVal: firstObj[key], secondVal: secondObj[key] }, type: 'changed' });
+    return makeObj({ key, value: { oldVal: firstObj[key], newVal: secondObj[key] }, type: 'changed' });
   });
 
 export default getDiff;

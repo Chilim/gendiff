@@ -22,7 +22,7 @@ const formatActions = {
 
 const getExtenAction = exten => formatActions[exten];
 
-const genDiff = (firstFilePath, secondFilePath, renderFormat = 'plain') => {
+const genDiff = (firstFilePath, secondFilePath, renderFormat = 'casual') => {
   const firstObj = fs.readFileSync(firstFilePath, 'utf8');
   const secondObj = fs.readFileSync(secondFilePath, 'utf8');
   const exten = path.extname(firstFilePath);
