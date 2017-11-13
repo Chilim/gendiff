@@ -1,18 +1,18 @@
 
-const isSimpObj = (type, value) => type !== 'hasChildren' && type !== 'changed' && value instanceof Object;
+const isSimplObj = (type, value) => type !== 'hasChildren' && type !== 'changed' && value instanceof Object;
 
 const renderToPlain = (ast, root = '') => {
   const result = ast.map((obj) => {
     const property = (root === '') ? `${obj.key}` : `${root}.${obj.key}`;
-    const newValue = isSimpObj(obj.type, obj.value) ? 'complex value' : obj.value;
+    const CurrVal = isSimplObj(obj.type, obj.oldVal) ? 'complex value' : obj;
     switch (obj.type) {
       case 'hasChildren':
-        return `${renderToPlain(obj.value, property)}`;
+        return `${renderToPlain(obj.oldVal, property)}`;
       case 'changed':
-        return `Property '${property}' was updated. From '${newValue.newVal}' to '${newValue.oldVal}'`;
+        return `Property '${property}' was updated. From '${CurrVal.newVal}' to '${CurrVal.oldVal}'`;
       case 'added':
-        return `Property '${property}' was added with ${(newValue === 'complex value') ? newValue :
-          `value: ${newValue}`}`;
+        return `Property '${property}' was added with ${(CurrVal === 'complex value') ? CurrVal :
+          `value: ${CurrVal}`}`;
       case 'deleted':
         return `Property '${property}' was removed`;
       default:
