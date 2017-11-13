@@ -18,8 +18,7 @@ describe('genDiff', () => {
 });
 
 describe('Compares two Recursive files', () => {
-  const expected =
-`{
+  const expected = `{
     common: {
         setting1: Value 1
       - setting2: 200
@@ -43,7 +42,7 @@ describe('Compares two Recursive files', () => {
   + group3: {
         fee: 100500
      }
-  }`;
+}`;
 
   test('compare .json files with recursion', () => {
     const path1 = 'tests/fixtures/before2.json';
