@@ -23,7 +23,7 @@ const renderToString = (ast) => {
         case 'unchanged':
           return `${spaces}  ${obj.key}: ${newValue}`;
         case 'changed':
-          return `${spaces}+ ${obj.key}: ${newValue.secondVal}\n${spaces}- ${obj.key}: ${newValue.firstVal}`;
+          return `${spaces}+ ${obj.key}: ${newValue.newVal}\n${spaces}- ${obj.key}: ${newValue.oldVal}`;
         case 'added':
           return `${spaces}+ ${obj.key}: ${newValue}`;
         case 'deleted':
