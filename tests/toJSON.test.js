@@ -42,8 +42,8 @@ describe('genDiff', () => {
       "baz": {
         "type": "changed",
         "value": {
-          "firstVal": "bas",
-          "secondVal": "bars"
+          "oldVal": "bas",
+          "newVal": "bars"
         }
       },
       "foo": {

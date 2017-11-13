@@ -2,10 +2,10 @@ import fs from 'fs';
 import ini from 'ini';
 import path from 'path';
 import yaml from 'js-yaml';
-import getDiff from './lib/ast';
-import renderToJSON from './lib/render_formats/renderToJSON';
-import renderToPlain from './lib/render_formats/renderToPlain';
-import renderToString from './lib/render_formats/renderToString';
+import getDiff from './ast';
+import renderToJSON from './renderToJSON';
+import renderToPlain from './renderToPlain';
+import renderToString from './renderToString';
 
 
 const renderFormats = {
