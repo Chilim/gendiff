@@ -11,9 +11,7 @@ const isSimpObj = (type, value) =>
 const renderToString = (ast) => {
   const space = ' ';
   const doubleShift = 4;
-
-  const result = (ast, shift) => {
-    return ast.map((obj) => {
+  const result = (tree, shift) => tree.map((obj) => {
       const spaces = space.repeat(shift);
       const newValue = isSimpObj(obj.type, obj.value) ? unwrapObject(obj.value, shift + doubleShift)
         : obj.value;
@@ -32,8 +30,7 @@ const renderToString = (ast) => {
           return null;
       }
     }).join('\n');
+    return `{\n${result(ast, 2)}\n}`;
   };
-  return `{\n${result(ast, 2)}\n}`;
-};
 
 export default renderToString;
