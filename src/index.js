@@ -30,6 +30,7 @@ const genDiff = (firstFilePath, secondFilePath, renderFormat = 'casual') => {
   const firstFileContent = extenAction(firstObj);
   const secondFileContent = extenAction(secondObj);
   const ast = getDiff(firstFileContent, secondFileContent);
+  // ast.map(el => console.log(el));
   return renderFormats[renderFormat](ast);
 };
 
