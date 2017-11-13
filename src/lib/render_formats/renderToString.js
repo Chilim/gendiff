@@ -1,36 +1,34 @@
-const space = '  ';
+import _ from 'lodash';
 
-const render = (ast, shift = 1) => {
-  const doubleShift = space.repeat(shift);
-  const newShift = shift + 2;
+const unwrapObject = (obj, space) => Object.keys(obj).map(key =>
+  `{\n${' '.repeat(space + 2)}${key}: ${obj[key]}\n ${' '.repeat(space - 3)}}`);
+
+const isSimpObj = (type, value) =>
+  type !== 'hasChildren' && type !== 'changed' && _.isObject(value);
+
+const renderToString = (ast, shift = 2) => {
+  const space = ' ';
+  const doubleShift = 4;
+  const spaces = space.repeat(shift);
   const result = ast.map((obj) => {
-    if (obj.operation === 'draw') {
-      if (!obj.children.length) {
-        return `${doubleShift}  ${obj.key}: ${obj.secondVal}\n`;
-      }
-      return `${doubleShift}  ${obj.key}: ${render(obj.children, newShift)}\n`;
+    const newValue = isSimpObj(obj.type, obj.value) ? unwrapObject(obj.value, shift + doubleShift) :
+      obj.value;
+    switch (obj.type) {
+      case 'hasChildren':
+        return `${spaces}  ${obj.key}: {\n${renderToString(obj.value, shift + doubleShift)}\n${spaces}}`;
+      case 'unchanged':
+        return `${spaces}  ${obj.key}: ${newValue}\n`;
+      case 'changed':
+        return `${spaces}+ ${obj.key}: ${newValue.secondVal}\n${spaces}- ${obj.key}: ${newValue.firstVal}\n`;
+      case 'added':
+        return `${spaces}+ ${obj.key}: ${newValue}\n`;
+      case 'deleted':
+        return `${spaces}- ${obj.key}: ${newValue}\n`;
+      default:
+        return null;
     }
-    if (obj.operation === 'changed') {
-      if (!obj.children.length) {
-        return `${doubleShift}+ ${obj.key}: ${obj.secondVal}\n${doubleShift}- ${obj.key}: ${obj.firstVal}\n`;
-      }
-      return `${doubleShift}+ ${obj.key}: ${render(obj.children, newShift)}\n`;
-    }
-    if (obj.operation === 'delete') {
-      if (!obj.children.length) {
-        return `${doubleShift}- ${obj.key}: ${obj.firstVal}\n`;
-      }
-      return `${doubleShift}- ${obj.key}: ${render(obj.children, newShift)}\n`;
-    }
-    if (obj.operation === 'add') {
-      if (!obj.children.length) {
-        return `${doubleShift}+ ${obj.key}: ${obj.secondVal}\n`;
-      }
-      return `${doubleShift}+ ${obj.key}: ${render(obj.children, newShift)}\n`;
-    }
-    return 'no match';
   });
-  return `{\n${result.join('\n')}\n${doubleShift}}`;
+  return `{\n${result.join('')}}`;
 };
 
-export default render;
+export default renderToString;

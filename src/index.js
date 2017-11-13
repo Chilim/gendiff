@@ -1,14 +1,17 @@
 import fs from 'fs';
+import ini from 'ini';
 import path from 'path';
 import yaml from 'js-yaml';
-import ini from 'ini';
 import getDiff from './lib/ast';
+import renderToJSON from './lib/render_formats/renderToJSON';
 import renderToPlain from './lib/render_formats/renderToPlain';
 import renderToString from './lib/render_formats/renderToString';
+
 
 const renderFormats = {
   plain: renderToPlain,
   casual: renderToString,
+  json: renderToJSON,
 };
 
 const formatActions = {
