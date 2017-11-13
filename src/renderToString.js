@@ -1,14 +1,7 @@
 import _ from 'lodash';
 
-const unwrapObject = (obj, shift) => {
-  const str = Object.keys(obj).map(key => `${' '.repeat(shift)}  ${key}: ${obj[key]}`).join('\n');
-  return `{\n${str}\n${' '.repeat(shift - 3)}  }`;
-};
-
-const isSimplObj = (type, value) =>
-  type !== 'hasChildren' && type !== 'changed' && _.isObject(value);
-
-const unwrapObject = (obj, shift) => {
+const unwrapObject = (oldVal, newVal, shift) => {
+  const obj = _.isObject(oldVal) ? oldVal : newVal;
   const str = Object.keys(obj).map(key => `${' '.repeat(shift)}  ${key}: ${obj[key]}`).join('\n');
   return `{\n${str}\n${' '.repeat(shift - 3)}  }`;
 };
@@ -23,8 +16,7 @@ const renderToString = (ast) => {
   const result = (ast, shift) => {
     return ast.map((obj) => {
       const spaces = space.repeat(shift);
-      const value = isSimplObj(obj) ? unwrapObject(obj, shift + doubleShift) : obj;
-
+      const value = isSimplObj(obj) ? unwrapObject(obj.oldVal, obj.newVal, shift + doubleShift) : obj;
       switch (obj.type) {
         case 'hasChildren':
           return `${spaces}  ${obj.key}: {\n${result(obj.oldVal, shift + doubleShift)}\n${spaces}  }`;
@@ -33,9 +25,9 @@ const renderToString = (ast) => {
         case 'changed':
           return `${spaces}+ ${obj.key}: ${obj.newVal}\n${spaces}- ${obj.key}: ${obj.oldVal}`;
         case 'added':
-          return `${spaces}+ ${obj.key}: ${obj.newVal}`;
+          return `${spaces}+ ${obj.key}: ${value}`;
         case 'deleted':
-          return `${spaces}- ${obj.key}: ${obj.oldVal}`;
+          return `${spaces}- ${obj.key}: ${value}`;
         default:
           return null;
       }
