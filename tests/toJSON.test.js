@@ -72,4 +72,18 @@ describe('genDiff', () => {
     const actual = genDiff(path1, path2, 'json');
     expect(actual).toBe(expected);
   });
+
+  test('generate json format output from .json files', () => {
+    const path1 = 'tests/fixtures/before2.json';
+    const path2 = 'tests/fixtures/after2.json';
+    const actual = genDiff(path1, path2, 'json');
+    expect(actual).toBe(expected);
+  });
+
+  test('generate json format output from .json files', () => {
+    const path1 = 'tests/fixtures/before2.json';
+    const path2 = 'tests/fixtures/after2.json';
+    const actual = genDiff(path1, path2, 'json');
+    expect(actual).toBe(expected);
+  });
 });
