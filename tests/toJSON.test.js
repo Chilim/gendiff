@@ -72,18 +72,4 @@ describe('genDiff', () => {
     const actual = genDiff(path1, path2, 'json');
     expect(actual).toBe(expected);
   });
-
-  test('generate json format output from .yaml files', () => {
-    const path1 = 'tests/fixtures/before2.yaml';
-    const path2 = 'tests/fixtures/after2.yaml';
-    const actual = genDiff(path1, path2, 'json');
-    expect(actual).toBe(expected);
-  });
-
-  test('generate json format output from .ini files', () => {
-    const path1 = 'tests/fixtures/before2.ini';
-    const path2 = 'tests/fixtures/after2.ini';
-    const actual = genDiff(path1, path2, 'json');
-    expect(actual).toBe(expected);
-  });
 });

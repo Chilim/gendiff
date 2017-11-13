@@ -1,24 +1,17 @@
 import genDiff from '../src';
 
 describe('genDiff', () => {
-  const expected = '{\n  host: hexlet.io\n+ timeout: 20\n- timeout: 50\n- proxy: 123.234.53.22\n+ verbose: true\n}';
+  const expected = `{
+    host: hexlet.io
+  + timeout: 20
+  - timeout: 50
+  - proxy: 123.234.53.22
+  + verbose: true
+}`;
+
   test('compare .json files', () => {
     const path1 = 'tests/fixtures/before.json';
     const path2 = 'tests/fixtures/after.json';
-    const actual = genDiff(path1, path2, 'casual');
-    expect(actual).toBe(expected);
-  });
-
-  test('compare .yaml files', () => {
-    const path1 = 'tests/fixtures/before.yml';
-    const path2 = 'tests/fixtures/after.yml';
-    const actual = genDiff(path1, path2, 'casual');
-    expect(actual).toBe(expected);
-  });
-
-  test('compare .ini files', () => {
-    const path1 = 'tests/fixtures/before.ini';
-    const path2 = 'tests/fixtures/after.ini';
     const actual = genDiff(path1, path2, 'casual');
     expect(actual).toBe(expected);
   });
@@ -59,8 +52,8 @@ describe('Compares two Recursive files', () => {
     expect(actual).toBe(expected);
   });
   test('compare .yaml files with recursion', () => {
-    const path1 = 'tests/fixtures/before2.yml';
-    const path2 = 'tests/fixtures/after2.yml';
+    const path1 = 'tests/fixtures/before2.yaml';
+    const path2 = 'tests/fixtures/after2.yaml';
     const actual = genDiff(path1, path2, 'casual');
     expect(actual).toBe(expected);
   });
