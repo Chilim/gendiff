@@ -15,6 +15,20 @@ describe('genDiff', () => {
     const actual = genDiff(path1, path2, 'casual');
     expect(actual).toBe(expected);
   });
+
+  test('compare .json files', () => {
+    const path1 = 'tests/fixtures/before.yaml';
+    const path2 = 'tests/fixtures/after.yaml';
+    const actual = genDiff(path1, path2, 'casual');
+    expect(actual).toBe(expected);
+  });
+
+  test('compare .json files', () => {
+    const path1 = 'tests/fixtures/before.ini';
+    const path2 = 'tests/fixtures/after.ini';
+    const actual = genDiff(path1, path2, 'casual');
+    expect(actual).toBe(expected);
+  });
 });
 
 describe('Compares two Recursive files', () => {
