@@ -5,7 +5,7 @@ const unwrapObject = (obj, shift) => {
   return `{\n${str}\n${' '.repeat(shift - 3)}  }`;
 };
 
-const isSimpObj = (type, value) =>
+const isSimplObj = (type, value) =>
   type !== 'hasChildren' && type !== 'changed' && _.isObject(value);
 
 const renderToString = (ast) => {
@@ -13,19 +13,19 @@ const renderToString = (ast) => {
   const doubleShift = 4;
   const result = (tree, shift) => tree.map((obj) => {
     const spaces = space.repeat(shift);
-    const newValue = isSimpObj(obj.type, obj.value) ? unwrapObject(obj.value, shift + doubleShift)
-      : obj.value;
+    const CurrVal = isSimplObj(obj.type, obj.oldValue) ?
+      unwrapObject(obj.value, shift + doubleShift) : obj;
     switch (obj.type) {
       case 'hasChildren':
-        return `${spaces}  ${obj.key}: {\n${result(obj.value, shift + doubleShift)}\n${spaces}  }`;
+        return `${spaces}  ${obj.key}: {\n${result(obj.oldVal, shift + doubleShift)}\n${spaces}  }`;
       case 'unchanged':
-        return `${spaces}  ${obj.key}: ${newValue}`;
+        return `${spaces}  ${obj.key}: ${CurrVal}`;
       case 'changed':
-        return `${spaces}+ ${obj.key}: ${newValue.newVal}\n${spaces}- ${obj.key}: ${newValue.oldVal}`;
+        return `${spaces}+ ${obj.key}: ${CurrVal.newVal}\n${spaces}- ${obj.key}: ${CurrVal.oldVal}`;
       case 'added':
-        return `${spaces}+ ${obj.key}: ${newValue}`;
+        return `${spaces}+ ${obj.key}: ${CurrVal}`;
       case 'deleted':
-        return `${spaces}- ${obj.key}: ${newValue}`;
+        return `${spaces}- ${obj.key}: ${CurrVal}`;
       default:
         return null;
     }
