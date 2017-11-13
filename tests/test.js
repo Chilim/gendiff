@@ -5,21 +5,21 @@ describe('genDiff', () => {
   test('compare .json files', () => {
     const path1 = 'tests/fixtures/before.json';
     const path2 = 'tests/fixtures/after.json';
-    const actual = genDiff(path1, path2);
+    const actual = genDiff(path1, path2, 'casual');
     expect(actual).toBe(expected);
   });
 
   test('compare .yaml files', () => {
     const path1 = 'tests/fixtures/before.yml';
     const path2 = 'tests/fixtures/after.yml';
-    const actual = genDiff(path1, path2);
+    const actual = genDiff(path1, path2, 'casual');
     expect(actual).toBe(expected);
   });
 
   test('compare .ini files', () => {
     const path1 = 'tests/fixtures/before.ini';
     const path2 = 'tests/fixtures/after.ini';
-    const actual = genDiff(path1, path2);
+    const actual = genDiff(path1, path2, 'casual');
     expect(actual).toBe(expected);
   });
 });
@@ -55,19 +55,19 @@ describe('Compares two Recursive files', () => {
   test('compare .json files with recursion', () => {
     const path1 = 'tests/fixtures/before2.json';
     const path2 = 'tests/fixtures/after2.json';
-    const actual = genDiff(path1, path2);
+    const actual = genDiff(path1, path2, 'casual');
     expect(actual).toBe(expected);
   });
   test('compare .yaml files with recursion', () => {
     const path1 = 'tests/fixtures/before2.yml';
     const path2 = 'tests/fixtures/after2.yml';
-    const actual = genDiff(path1, path2);
+    const actual = genDiff(path1, path2, 'casual');
     expect(actual).toBe(expected);
   });
   test('compare .ini files with recursion', () => {
     const path1 = 'tests/fixtures/before2.ini';
     const path2 = 'tests/fixtures/after2.ini';
-    const actual = genDiff(path1, path2);
+    const actual = genDiff(path1, path2, 'casual');
     expect(actual).toBe(expected);
   });
 });
