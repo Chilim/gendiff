@@ -11,5 +11,3 @@ program
     console.log(genDiff(firstFile, secondFile, program.format));
   })
   .parse(process.argv);
-
-console.log('we are free again');
