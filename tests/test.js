@@ -26,11 +26,11 @@ describe('Compares two Recursive files', () => {
         setting3: true
       - setting6: {
             key: value
-        }
+         }
       + setting4: blah blah
       + setting5: {
             key5: value5
-        }
+         }
     }
     group1: {
       + baz: bars
@@ -39,27 +39,15 @@ describe('Compares two Recursive files', () => {
     }
   - group2: {
         abc: 12345
-    }
+     }
   + group3: {
         fee: 100500
-    }
-}`;
+     }
+  }`;
 
   test('compare .json files with recursion', () => {
     const path1 = 'tests/fixtures/before2.json';
     const path2 = 'tests/fixtures/after2.json';
-    const actual = genDiff(path1, path2, 'casual');
-    expect(actual).toBe(expected);
-  });
-  test('compare .yaml files with recursion', () => {
-    const path1 = 'tests/fixtures/before2.yaml';
-    const path2 = 'tests/fixtures/after2.yaml';
-    const actual = genDiff(path1, path2, 'casual');
-    expect(actual).toBe(expected);
-  });
-  test('compare .ini files with recursion', () => {
-    const path1 = 'tests/fixtures/before2.ini';
-    const path2 = 'tests/fixtures/after2.ini';
     const actual = genDiff(path1, path2, 'casual');
     expect(actual).toBe(expected);
   });
