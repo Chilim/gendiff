@@ -25,9 +25,9 @@ const renderToString = (ast) => {
         case 'changed':
           return `${spaces}+ ${obj.key}: ${obj.newVal}\n${spaces}- ${obj.key}: ${obj.oldVal}`;
         case 'added':
-          return `${spaces}+ ${obj.key}: ${value}`;
+          return `${spaces}+ ${obj.key}: ${_.isObject(obj.newVal) ? value : obj.newVal}`;
         case 'deleted':
-          return `${spaces}- ${obj.key}: ${value}`;
+          return `${spaces}- ${obj.key}: ${_.isObject(obj.oldVal) ? value : obj.oldVal}`;
         default:
           return null;
       }
