@@ -3,16 +3,8 @@ import ini from 'ini';
 import path from 'path';
 import yaml from 'js-yaml';
 import getDiff from './ast';
-import renderToJSON from './renderToJSON';
-import renderToPlain from './renderToPlain';
-import renderToString from './renderToString';
+import getRenderFormat from './renderers';
 
-
-const renderFormats = {
-  plain: renderToPlain,
-  casual: renderToString,
-  json: renderToJSON,
-};
 
 const formatActions = {
   '.json': JSON.parse,
@@ -22,7 +14,7 @@ const formatActions = {
 
 const getExtenAction = exten => formatActions[exten];
 
-const genDiff = (firstFilePath, secondFilePath, renderFormat = 'casual') => {
+const genDiff = (firstFilePath, secondFilePath, format = 'casual') => {
   const firstObj = fs.readFileSync(firstFilePath, 'utf8');
   const secondObj = fs.readFileSync(secondFilePath, 'utf8');
   const exten = path.extname(firstFilePath);
@@ -30,8 +22,8 @@ const genDiff = (firstFilePath, secondFilePath, renderFormat = 'casual') => {
   const firstFileContent = extenAction(firstObj);
   const secondFileContent = extenAction(secondObj);
   const ast = getDiff(firstFileContent, secondFileContent);
-  // ast.map(el => console.log(el));
-  return renderFormats[renderFormat](ast);
+  const renderFormat = getRenderFormat(format);
+  return renderFormat(ast);
 };
 
 export default genDiff;
