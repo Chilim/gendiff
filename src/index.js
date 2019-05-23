@@ -2,7 +2,7 @@ import fs from 'fs';
 import ini from 'ini';
 import path from 'path';
 import yaml from 'js-yaml';
-import getDiff from './ast';
+import buildAst from './ast';
 import getRenderFormat from './renderers';
 
 
@@ -14,14 +14,14 @@ const formatActions = {
 
 const getExtenAction = exten => formatActions[exten];
 
-const genDiff = (firstFilePath, secondFilePath, format = 'casual') => {
+const genDiff = (firstFilePath, secondFilePath, format = 'json') => {
   const firstObj = fs.readFileSync(firstFilePath, 'utf8');
   const secondObj = fs.readFileSync(secondFilePath, 'utf8');
   const exten = path.extname(firstFilePath);
   const extenAction = getExtenAction(exten);
   const firstFileContent = extenAction(firstObj);
   const secondFileContent = extenAction(secondObj);
-  const ast = getDiff(firstFileContent, secondFileContent);
+  const ast = buildAst(firstFileContent, secondFileContent);
   const renderFormat = getRenderFormat(format);
   return renderFormat(ast);
 };
