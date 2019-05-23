@@ -3,8 +3,8 @@ import program from 'commander';
 import genDiff from '..';
 
 program
-  .version('0.1.9')
-  .description('Compares two configuration files and shows a difference.')
+  .version('1.0.0')
+  .description('Compares two configuration files and shows differences.')
   .option('-f, --format [type]', 'output format')
   .arguments('<firstArgument> <secondArgument>')
   .action((firstFile, secondFile) => {
