@@ -1,18 +1,18 @@
+import _ from 'lodash';
 
-const isSimplObj = (type, value) => type !== 'hasChildren' && type !== 'changed' && value instanceof Object;
+const hasComplexValue = (type, obj) => type !== 'hasChild' && type !== 'changed' && (_.isObject(obj.oldValue) || _.isObject(obj.newValue));
 
 const renderToPlain = (ast, root = '') => {
   const result = ast.map((obj) => {
     const property = (root === '') ? `${obj.key}` : `${root}.${obj.key}`;
-    const CurrVal = isSimplObj(obj.type, obj.oldVal) ? 'complex value' : obj;
+    const isComplexValue = hasComplexValue(obj.type, obj);
     switch (obj.type) {
-      case 'hasChildren':
-        return `${renderToPlain(obj.oldVal, property)}`;
+      case 'hasChild':
+         return `${renderToPlain(obj.children, property)}`;
       case 'changed':
-        return `Property '${property}' was updated. From '${CurrVal.newVal}' to '${CurrVal.oldVal}'`;
+        return `Property '${property}' was updated. From '${obj.newValue}' to '${obj.oldValue}'`;
       case 'added':
-        return `Property '${property}' was added with ${(CurrVal === 'complex value') ? CurrVal :
-          `value: ${CurrVal}`}`;
+        return `Property '${property}' was added with ${ isComplexValue ? 'complex value' :  `value: ${obj.newValue}`}`;
       case 'deleted':
         return `Property '${property}' was removed`;
       default:
@@ -21,5 +21,4 @@ const renderToPlain = (ast, root = '') => {
   });
   return result.filter(el => el !== null).join('\n');
 };
-
 export default renderToPlain;

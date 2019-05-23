@@ -4,63 +4,64 @@ describe('genDiff', () => {
   const expected =
   `{
   "common": {
-    "type": "hasChildren",
+    "type": "hasChild",
     "value": {
       "setting1": {
         "type": "unchanged",
-        "value": "Value 1"
+        "oldValue": "Value 1",
+        "newValue": "Value 1"
       },
       "setting2": {
         "type": "deleted",
-        "value": "200"
+        "oldValue": "200"
       },
       "setting3": {
         "type": "unchanged",
-        "value": true
+        "oldValue": true,
+        "newValue": true
       },
       "setting6": {
         "type": "deleted",
-        "value": {
+        "oldValue": {
           "key": "value"
         }
       },
       "setting4": {
         "type": "added",
-        "value": "blah blah"
+        "newValue": "blah blah"
       },
       "setting5": {
         "type": "added",
-        "value": {
+        "newValue": {
           "key5": "value5"
         }
       }
     }
   },
   "group1": {
-    "type": "hasChildren",
+    "type": "hasChild",
     "value": {
       "baz": {
         "type": "changed",
-        "value": {
-          "oldVal": "bas",
-          "newVal": "bars"
-        }
+        "oldValue": "bas",
+        "newValue": "bars"
       },
       "foo": {
         "type": "unchanged",
-        "value": "bar"
+        "oldValue": "bar",
+        "newValue": "bar"
       }
     }
   },
   "group2": {
     "type": "deleted",
-    "value": {
+    "oldValue": {
       "abc": "12345"
     }
   },
   "group3": {
     "type": "added",
-    "value": {
+    "newValue": {
       "fee": "100500"
     }
   }

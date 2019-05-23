@@ -1,8 +1,8 @@
 const renderToJSON = (ast) => {
   const result = tree => tree.reduce((acc, obj) => {
-    const { key, type, value } = obj;
-    return (type === 'hasChildren') ? { ...acc, [key]: { type, value: result(value) } }
-      : { ...acc, [key]: { type, value } };
+    const { key, type, oldValue, newValue, children } = obj;
+    return (type === 'hasChild') ? { ...acc, [key]: { type, value: result(children) } }
+      : { ...acc, [key]: { type, oldValue, newValue } };
   }, {});
   return JSON.stringify(result(ast), null, 2);
 };

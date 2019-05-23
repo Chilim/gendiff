@@ -2,10 +2,12 @@ env:
   node: true
   jest: true
 
-parser: babel-eslint
-
 extends:
   - 'airbnb-base'
 
+parser: babel-eslint
+
 rules:
   no-console: 0
+  indent: ["error", 2]
+  object-curly-newline: ['error', multiline: true]
